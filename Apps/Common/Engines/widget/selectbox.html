@@ -1,0 +1,18 @@
+<case value="selectbox">
+    <select id="{$[type]form.name}" multiple="multiple" style="width:100%" name="{$[type]form.name}[]" class="form-control select" {$[type]form.extra_attr}>        
+        <?php $selects = explode(',',$[type]form['value']);  ?>
+        <foreach name="[type]form.options" item="option" key="option_key">         
+            <php>if(is_array($option)):</php>
+                <option value="{$option_key}" <?php if(array_search($option_key,$selects)!==false) echo 'selected';?>>                     
+                    {$option.title}
+                </option>
+            <php>else:</php>
+                <option value="{$option_key}" <?php  if(array_search($option_key,$selects)!==false) echo 'selected'; ?>>{$option}</option>
+            <php>endif;</php>
+        </foreach>
+    </select>
+      <script>
+      $("#{$[type]form.name}").select2({    	 
+    	});
+      </script>
+</case>

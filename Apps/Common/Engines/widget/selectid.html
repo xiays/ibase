@@ -1,0 +1,31 @@
+<case value="selectid">
+	<div class="input-group">
+	<input type="text" id="{$[type]form.name}_title" readonly placeholder="请点击右侧图标选择" class="form-control input text"  value="{$[type]form.style.value}" {$[type]form.extra_attr}>		
+	<a id="select_{$[type]form.name}" href="javascript:" class="input-group-addon">{$[type]form.style.unit}</a>
+	<a id="{$[type]form.name}_remove" class="glyphicon glyphicon-remove input-group-addon"></a>
+	</div>
+	<input type="hidden" id="{$[type]form.name}" class="form-control input text" name="{$[type]form.name}" value="{$[type]form.value}">
+	<script>
+	var Dialog{$[type]form.name};
+	$(function(){     
+		$("#{$[type]form.name}_title").css("background-color","#fff").css('color','#82939e');
+		$("#select_{$[type]form.name}").click(function(){			
+			Dialog{$[type]form.name} = $.artDialog.open('{$[type]form.style.url}?backfun=get_{$[type]form.name}',{				
+				    title: '欢迎',
+				    width: '600px',
+					height:'410px'							
+				});
+		});	
+		$("#{$[type]form.name}_remove").click(function(){
+			$("#{$[type]form.name}_title").val('');
+			$("#{$[type]form.name}").val('');
+		});	
+	});
+	function get_{$[type]form.name}(id,name)
+	{		
+		$("#{$[type]form.name}_title").val(name);
+		$("#{$[type]form.name}").val(id);	
+		Dialog{$[type]form.name}.close();
+	}
+	</script>
+</case>

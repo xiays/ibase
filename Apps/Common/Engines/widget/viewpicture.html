@@ -1,0 +1,10 @@
+<case value="viewpicture">    
+		<notempty name="[type]form.value">
+            <?php $images = explode(',',$[type]form['value']); ?>
+            <foreach name="images" item="img">
+            <div class="img-box  thumbnail" style="float:left;width:20%;margin:10px 0 0 0;padding-right:10px;">
+                <span class="img-box"><img class="img" src="{$img}" data-id="{$img}"></span>
+            </div>
+            </foreach>
+        </notempty>
+</case>

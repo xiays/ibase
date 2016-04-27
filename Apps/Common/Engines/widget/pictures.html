@@ -1,0 +1,80 @@
+<case value="pictures">
+    <div id="[type]{$group_k}_upload_{$[type]k}" {$[type]form.extra_attr}></div>
+    <div id="[type]{$group_k}_preview_{$[type]k}">
+        <input type="hidden" name="{$[type]form.name}" value="{$[type]form.value}">
+        <notempty name="[type]form.value">
+            <?php $images = explode(',',$[type]form['value']); ?>
+            <foreach name="images" item="img">
+            <div class="img-box  thumbnail" style="float:left;width:20%;margin:10px 0 0 0;padding-right:10px;">
+                <span class="img-box"><img title="点击向前移动" onclick="{$[type]form.name}_next(this)" class="img" src="{$img}" data-id="{$img}"><i onclick="{$[type]form.name}_remove(this)" class="glyphicon-remove remove-picture"></i></span>
+                </div>
+            </foreach>
+        </notempty>
+    </div>
+    <script type="text/javascript">
+        $(function(){
+            $('#[type]{$group_k}_upload_{$[type]k}').Huploadify({
+                uploader:'{:U(C("MODULE_MARK")."/PublicUpload/myupload")}',
+                fileTypeExts:'*.gif;*.jpg;*.jpeg;*.png;*.bmp',
+                fileSizeLimit:{:C('UPLOAD_IMAGE_SIZE')}*1024,
+                buttonText:'上传图片',
+                onUploadComplete:function(file, data){
+                    var data = $.parseJSON(data);
+                    if(data.error == 1){
+                        $.alertMessager(data.message, 'danger');
+                    }else{
+                        var input = $('#[type]{$group_k}_preview_{$[type]k} input');
+                        var new_img = '<div class="img-box  thumbnail" style="float:left;width:20%;margin:10px 10px 0 0;"><img title="点击向前移动" onclick="{$[type]form.name}_next(this)" class="img" src="' + data.url + '" data-id="'+data.url+'"><i onclick="{$[type]form.name}_remove(this)" class="glyphicon glyphicon-remove remove-picture"></i></div>';
+                        $('#[type]{$group_k}_preview_{$[type]k}').append(new_img);
+                        if(input.val()){
+                            input.val(input.val() + ',' + data.url);
+                        }else{
+                            input.val(data.url);
+                        }                        
+                    }
+                }
+            });           
+        });
+        
+        
+        function {$[type]form.name}_next(t){
+        	var ready_for_remove_id = $(t).closest('.img-box').find('img').attr('data-id'); //获取待删除的图片ID
+        	if(!ready_for_remove_id){
+                $.alertMessager('错误', 'danger');
+            }
+            var current_picture_ids = $('#[type]{$group_k}_preview_{$[type]k} input').val().split(","); //获取当前图集以逗号分隔的ID并转换成数组
+            var j=0;
+            for(i=0;i<current_picture_ids.length;i++)
+            {
+            	if (ready_for_remove_id==current_picture_ids[i])
+            	{
+            		j=i;
+            	}
+            }
+            if (j>0)
+            {
+            	var picture_id=current_picture_ids[j];
+            	current_picture_ids[j]=current_picture_ids[j-1];
+            	current_picture_ids[j-1]=picture_id;
+            }
+            $('#[type]{$group_k}_preview_{$[type]k} input').val(current_picture_ids.join(',')) //删除后覆盖原input的值
+            var $tr = $(t).parents(".img-box");
+            if ($tr.index() != 0) {
+            	$tr.prev().before($tr);
+            }        
+        }
+        
+        function {$[type]form.name}_remove(t){
+        	var ready_for_remove_id = $(t).closest('.img-box').find('img').attr('data-id'); //获取待删除的图片ID
+          
+        	if(!ready_for_remove_id){
+                $.alertMessager('错误', 'danger');
+            }
+            var current_picture_ids = $('#[type]{$group_k}_preview_{$[type]k} input').val().split(","); //获取当前图集以逗号分隔的ID并转换成数组
+            
+            current_picture_ids.remove(ready_for_remove_id); //从数组中删除待删除的图片ID
+            $('#[type]{$group_k}_preview_{$[type]k} input').val(current_picture_ids.join(',')) //删除后覆盖原input的值
+            $(t).closest('.img-box').remove(); //删除图片预览图
+        }
+    </script>
+</case>

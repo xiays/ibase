@@ -1,0 +1,165 @@
+<extend name="_Layout/main"/>
+<block name="main">
+<link rel="stylesheet" href="/static/home/css/index.css">
+<!-- Template:常用菜单项模板 -->
+<script type="text/template" id="mu_item_tpl">
+    <li data-module="<%=mod%>">
+    <a href="<%=href%>" title="<%=desc%>">
+    <div class="posr">
+    <img width="64" height="64" class="mbs" src="<%=src%>">
+    <span class="bubble" data-bubble="<%=mod%>"></span>
+    </div>
+    <div class="cm-menu-title"><%=title%></div>
+    </a>
+    </li>
+</script>
+<div class="mtw">
+    <div class="mtw-portal-nav-wrap">
+        <ul class="portal-nav clearfix">   
+            <li>
+                <a href="/manage/">
+                    <i class="o-portal-office"></i>
+                   管理 首页
+                </a>
+            </li>
+                    </ul>
+    </div>
+    <span class="pull-right">{$data.time|default=time()|date='Y年m月d日',###}，{$Think.now|getWeekName}</span>
+</div>
+<div class="cm-menu mbs" id="cm_menu">
+        <ul class="cm-menu-list clearfix">
+         <volist name="__quick__" id="list">
+            			<li data-module="email">
+                            <a href="{:U($list['url'])}" data-id="{$list.id}" title="{$list.name}" >
+                                <div class="posr">
+                                    <img width="64" height="64" class="mbs" src="/static/image/{$list.ico}">
+                                    <span class="bubble" data-bubble="{$list.label}" style="display: none;"></span>
+                                </div>
+                                <div class="cm-menu-title">{$list.name}</div>
+                            </a>
+                        </li>
+        </volist>                                       </ul>
+        <a href="javascript:;" class="menu-opt-area" data-action="setupMenu" title="设置常用菜单">
+            <i class="menu-opt-btn"></i>
+        </a>
+        <!-- <i class="o-menu-new-tip" id="menu_new_tip"></i> -->        
+    </div>  
+    <div class="mbox in-mu" id="in_mu">
+    <div class="in-inmenu rdt">
+        <ul class="in-inmenu-list clearfix">
+         <volist name="__quick__" id="list">         
+           <li>
+                            <div class="in-menu-item" data-mod="{$list.id}" data-href="{:U($list['url'])}" data-title="{$list.name}" 
+                                 data-desc="{$list.name}" data-src="/static/image/{$list.ico}">
+                                <a href="javascript:;" class="o-mu-plus" data-action="addToCommonMenu"></a>
+                                <a href="javascript:;" class="o-mu-minus" data-action="removeFromCommonMenu"></a>
+                                <div title="{$list.name}">
+                                    <img width="64" height="64" src="/static/image/{$list.ico}">
+                                </div>
+                                <p class="in-mu-title xac fss">{$list.name}</p>
+                            </div>
+                        </li>         
+         </volist>   
+         <volist name="__buquick__" id="list">
+               <li></li>
+         </volist>               
+                                                                                </ul>
+    </div>
+    <div class="in-outmenu">
+        <h5>未添加的模块</h5>
+        <div class="in-outmenu-list clearfix">        
+         <volist name="__unquick__" id="list">
+           <div class="in-menu-item" data-mod="{$list.id}" data-href="{:U($list['url'])}" data-title="招聘"
+                             data-desc="{$list.name}" data-src="/static/image/{$list.ico}">
+                            <a href="javascript:;" class="o-mu-plus" data-action="addToCommonMenu"></a>
+                            <a href="javascript:;" class="o-mu-minus" data-action="removeFromCommonMenu"></a>
+                            <div title="{$list.name}">
+                                <img width="64" height="64" src="/static/image/{$list.ico}">
+                            </div>
+                            <p class="in-mu-title xac fss">{$list.name}</p>
+                        </div>
+         </volist>                                    
+        </div>
+    </div>
+    <div class="fill-sn clearfix">
+        <div class="pull-right">
+            <!--管理员，设置通用菜单按钮-->                           
+            <a href="javascript:;" class="btn btn-primary" data-action="saveCommonMenu">保存</a>
+        </div>
+    </div>
+</div>   
+    
+    
+     <div id="module_panel" class="in-mod-wrap clearfix">
+    
+    <div class="mbox in-article" data-name="article/article" style=""><div class="mbox-header"><h4>公告信息</h4></div><div class="mbox-body"><div><div>
+<!-- IE 8 Hack 加入空script标签延迟html加载，为了让空值图片能正常显示 -->
+
+	<table class="table table-underline table-first">
+		<tbody>
+		 <volist name="noticelist" id="list">		
+				<tr><td>
+						<div>
+							<span class="tcm pull-right">{:date('m月d日',$list['ctime'])}</span>
+							<a href="{:U('notice/view',['id'=>$list['id']])}" class="title">{$list.title}</a>
+						</div>
+				</td></tr>
+		</volist>
+					</tbody>
+	</table>
+	<div class="mbox-base">
+		<div class="fill-hn xac">
+			<a href="{:U('notice/index')}" class="link-more">
+				<i class="cbtn o-more"></i>
+				<span class="ilsep">查看更多公告</span>
+			</a>
+		</div>
+	</div>
+</div></div></div></div>
+<div class="mbox " style=""><div class="mbox-header"><h4>任务指派</h4></div><div class="mbox-body"><div><div>
+<!--我负责的-->
+            <table class="table table-underline">
+                            <tbody><tr>
+                    <td width="40">
+                        <span class="avatar-circle avatar-circle-small">
+                            <img class="mbm" src="" alt="">
+                        </span>
+                    </td>
+                    <td>
+                        <a href="" class="xcm">
+                            ssdfsdfsdfsdfsdfsdfsdfsdfdf                        </a>
+                        <div class="fss">
+                            admin                            03月07日 15:49 -- 03月24日 15:49                                                    </div>
+                    </td>
+                    <td width="60">
+                        <span class="pull-right am-tag am-tag-ongoing">
+                                                            进行中                                                    </span>
+                    </td>
+                </tr>
+                    </tbody></table>
+        <div class="mbox-base">
+            <div class="fill-hn xac">
+                <a href="" class="link-more">
+                    <i class="cbtn o-more"></i>
+                    <span class="ilsep">查看更多任务</span>
+                </a>
+            </div>
+        </div>
+        <!--我指派的-->
+</div>
+</div></div></div>
+    <div class="mbox " style=""><div class="mbox-header"><h4>日程安排</h4></div><div class="mbox-body"><div><div>
+
+<!-- IE 8 Hack 加入空script标签延迟html加载，为了让空值图片能正常显示 -->
+
+
+	<div class="in-cal-empty">
+		<a href="/?r=calendar/schedule/index" class="in-cal-add" target="_blank"></a>
+	</div>
+</div></div></div></div>
+
+</div>
+
+<script src='/static/home/js/index.js'></script>
+
+</block>

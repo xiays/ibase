@@ -1,0 +1,100 @@
+<!doctype html>
+<!-- <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN"> -->
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理 </title>
+		<!-- load css -->
+		<link rel="stylesheet" href="/static/css/base.css">		
+		<link rel="stylesheet" href="/static/admin/css/index.css">
+		<link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css">
+		<script src='/static/js/lang/zh-cn.js'></script>
+		<script src="/static/js/core.js"></script>		
+		<script src="/static/js/base.js"></script>
+		<script src="/static/js/common.js"></script>
+		<script src="/static/js/lib/artDialog/artDialog.min.js"></script>		
+		<script src='/static/js/application.js'></script>
+	</head>
+	<body>
+	
+		<script>
+			var adjustSidebarWidth = function() {
+				document.body.className = (window.innerWidth || document.documentElement.clientWidth) > 1150 ? "db-widen" : "";
+			}
+			adjustSidebarWidth();
+			window.onresize = adjustSidebarWidth;
+		</script>
+	
+		<div class="header">
+			<div class="logo" id="logo">
+				<h2 class="logo-bg">Ibase</h2>
+				
+			</div>
+			<div class="hdbar clearfix" id="bar">				
+				<div class="user-info pull-right">
+					<span class="user-name">
+						<a href="{:U('manager/pwd')}" target="main"><img width="30" height="30" class="radius msep" src="/static/image/myuser.png" title="admin"></a>
+						<strong>{$__USERNAME__}</strong>
+					</span>
+					<a href="/" target="_blank" class="msep cbtn o-homepage" title="返回系统首页"></a>
+					<a href="{:U('/admin/index/logout')}" class="cbtn o-logout" title="登出"></a>
+				</div>
+			</div>
+		</div>
+
+		<div class="mainer" id="mainer">
+			<div class="aside" id="aside">
+				<div class="main-nav">
+					<ul id="main_nav">
+<volist name="__FIRST_MENU__" id="list">
+<li>
+<a href="{:U($list['url'])}" style="background-image:none;height:40px;line-height: 40px" target="main" data-href="#list_{$list.id}" title="{$list.name}"><span class="glyphicon {$list.ico} fsg" title="{$list.name}"></span></a>
+	<a href="{:U($list['url'])}"  style="background-image:none;height:30px;line-height: 30px" target="main" data-href="#list_{$list.id}" id="index_{$list.id}" title="{$list.name}">{$list.name}</a>
+</li>
+</volist>				
+					</ul>
+				</div>
+				<div class="sub-nav" id="sub_nav" style="overflow: auto">				   
+				   <volist name="__TREE_MENU__" id="list">
+				   <ul id="list_{$list.id}" style="display:none;">				  
+				   <volist name="list.child" id="list1">
+						<li class="active">
+							<a href="{:U($list1['url'])}" target="main" title="{$list1.name}">
+							<i class="glyphicon {$list1.ico}"></i>	{$list1.name}						</a>
+						</li>
+						<notempty name="list1.child">						
+						<volist name="list1.child" id="list2">
+						<li style="padding-left:20px"> <a href="{:U($list2['url'])}" target="main" title="{$list2.name}"> <span class="glyphicon {$list2.ico}"></span> {$list2.name}</a></li>
+						</volist>							
+						 </notempty>	
+						</volist>						
+</ul>						
+</volist>	</div>
+			</div>
+			<div class="mc" id="mc">
+				<iframe src="{:U('/admin/home')}" width="100%" height="100%" frameborder="0" name="main" id="main"></iframe>
+			</div>
+		</div>
+
+		<!-- </div> -->
+		<!-- load js -->
+		<script src="/static/admin/js/frame.js"></script>
+		<script>
+		$(function(){
+			var refer = U.getUrlParam().refer;
+			if(refer !== ""){				
+				var $referElem = $('#sub_nav [href="' + unescape(refer) + '"]');
+				var $subMenu = $referElem.closest("ul");
+				var $nav = $('[data-href="#' + $subMenu.attr("id") + '"]');
+				$nav.click();
+				$referElem.click();
+			}
+			
+			$(document).on("click", "a[target='main']", function() {
+				var title = '后台管理 -' + $(this).attr("title");
+				document.title = title;
+			})
+		});
+		</script>
+	</body>
+</html>

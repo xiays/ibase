@@ -1,0 +1,128 @@
+<extend name="_Layout/main"/>
+<block name="main">
+{$script_html}
+<div class="ct">
+	<div class="clearfix">
+		<h1 class="mt">{$__CURRENTName__}</h1>
+		 <notempty name="tab_nav">
+		 <ul class="mn">
+		  <volist name="tab_nav.tab_list" id="tab">
+		  <php>if($tab_nav['current_tab'] == $key) {</php>
+			<li>
+				<span>{$tab.title}</span>
+			</li>
+			<php>} else {</php>			
+			<li>
+				<a href="{$tab.href}">{$tab.title}</a>
+			</li>
+			<php>} </php>
+			</volist>
+		</ul>
+    </notempty>
+		
+	</div>
+	<div>
+		<!-- 部门信息 start -->
+		<div class="ctb">
+			<h2 class="st">{$meta_title}</h2>
+			 <notempty name="tip_html"> 
+			<div class="alert trick-tip">
+					<div class="trick-tip-title">
+						<i></i>
+						<strong>提示</strong>
+					</div>
+					<div class="trick-tip-content">
+						<ul>
+					<li>{$tip_html}</li>
+				  </ul>					</div>
+			</div>
+			</notempty>
+			<div class="">			   
+			 <form action="{$post_url}" method="post" class="form-horizontal builder-form">                    
+                    <volist name="form_items" id="form" key="k">
+                    <php>if($form['style']['position']==0):</php>    
+                     <div class="ctb">
+                      <h2 class="st">{$form.title}</h2>
+                      </div>
+                    <php>endif;</php>
+                    
+                    <php>if($form['style']['position']==1):</php>                   	    
+                    <div class="control-group">                      
+                    <php>if($form['type'] != 'group' && $form['type'] != 'hidden'):</php>
+                                <label class="control-label"><span>{$form.title}</span></label>
+                            <php>endif;</php>                           
+						<div class="controls span{$form.style.width}">
+							<switch name="form.type"><include file='../Apps/Common/Engines/widget/hidden.html' type='' />
+                                    {// 数字 }
+                                    <include file='../Apps/Common/Engines/widget/num.html' type='' />
+                                    {// 字符串 }
+                                    <include file='../Apps/Common/Engines/widget/text.html' type='' />
+                                    {// 文本 }
+                                    <include file='../Apps/Common/Engines/widget/textarea.html' type='' />
+                                    {// 数组 }
+                                    <include file='../Apps/Common/Engines/widget/array.html' type='' />
+                                    {// 密码 }
+                                    <include file='../Apps/Common/Engines/widget/password.html' type='' />
+                                    {// 单选按钮 }
+                                    <include file='../Apps/Common/Engines/widget/radio.html' type='' />
+                                    {// 复选框 }
+                                    <include file='../Apps/Common/Engines/widget/checkbox.html' type='' />
+                                    {// 下拉框 }
+                                    <include file='../Apps/Common/Engines/widget/select.html' type='' />
+                                    {// 图标 }
+                                    <include file='../Apps/Common/Engines/widget/icon.html' type='' />
+                                    {// 日期 }
+                                    <include file='../Apps/Common/Engines/widget/date.html' type='' />
+                                    {// 时间 }
+                                    <include file='../Apps/Common/Engines/widget/time.html' type='' />
+                                    {// 图片 }
+                                    <include file='../Apps/Common/Engines/widget/picture.html' type='' />
+                                    {// 图片(多图) }
+                                    <include file='../Apps/Common/Engines/widget/pictures.html' type='' />
+                                    {// 文件 }
+                                    <include file='../Apps/Common/Engines/widget/file.html' type='' />
+                                    {// 多文件 }
+                                    <include file='../Apps/Common/Engines/widget/files.html' type='' />
+                                    {// 编辑器 kindeditor }
+                                    <include file='../Apps/Common/Engines/widget/kindeditor.html' type='' />
+                                    {// 编辑器 simditor }
+                                    <include file='../Apps/Common/Engines/widget/simditor.html' type='' />
+                                    {// 标签 }
+                                    <include file='../Apps/Common/Engines/widget/tags.html' type='' />
+                                    {// 拖动排序 }
+                                    <include file='../Apps/Common/Engines/widget/board.html' type='' />
+                                    {// 滑动排序 }
+                                    <include file='../Apps/Common/Engines/widget/slider.html' type='' />
+                                    {// 数据列表 }
+                                    <include file='../Apps/Common/Engines/widget/datalist.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/selectbox.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/label.html' type='' />
+                                    </switch>
+						</div>
+					</div>
+					<php>endif;</php>
+                    </volist>   
+                    
+                    <div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">							
+							<button class="btn btn-primary btn-large btn-submit ajax-post visible-md-inline visible-lg-inline" type="submit" target-form="builder-form">确定</button>
+                        <button class="btn btn-default btn-large return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
+						</div>
+					</div>                 
+                    <div class="form-group">                        
+                        
+                    </div>
+			</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div style="height:40px">    
+     </div>
+{// 额外功能代码 }
+{$extra_html}
+<SCRIPT language="JavaScript">
+javascript:window.history.forward(1);
+</SCRIPT>
+</block>

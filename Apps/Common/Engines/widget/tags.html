@@ -1,0 +1,42 @@
+<case value="tags">
+    <input type="text" id="[type]{$group_k}_tag_{$[type]k}" class="form-control" name="{$[type]form.name}" value="{$[type]form.value}" {$[type]form.extra_attr}>
+    <script type="text/javascript" src="/static/js/lib/jquery_tokeninput/js/jquery.tokeninput.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="/static/js/lib/jquery_tokeninput/css/token-input.css">
+    <link rel="stylesheet" href="/static/js/lib/jquery_tokeninput/css/token-input-facebook.css">   
+    <script type="text/javascript">
+        $(function(){
+            //标签自动完成
+            var tags = $('#[type]{$group_k}_tag_{$[type]k}'), tagsPre = [];
+            if (tags.length > 0) {
+                var items = tags.val().split(','), result = [];
+                for (var i = 0; i < items.length; i ++) {
+                    var tag = items[i];
+                    if (!tag) {
+                        continue;
+                    }
+                    tagsPre.push({
+                        id      :   tag,
+                        title   :   tag
+                    });
+                }
+            }
+            tags.tokenInput('',{
+                propertyToSearch    :   'title',
+                tokenValue          :   'title',
+                theme               :   'facebook',
+                searchDelay         :   0,
+                tokenLimit          :   50,
+                preventDuplicates   :   true,
+                animateDropdown     :   false,
+                allowFreeTagging    :   true,
+                hintText            :   '请输入标签名',
+                noResultsText       :   '此标签不存在, 按回车创建',
+                searchingText       :   "",
+                prePopulate         :   tagsPre,
+                onAdd: function (item){ //新增系统没有的标签时提交到数据库
+                   
+                }
+            });
+        });
+    </script>
+</case>

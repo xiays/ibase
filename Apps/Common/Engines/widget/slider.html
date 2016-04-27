@@ -1,0 +1,19 @@
+<case value="slider">
+<div id="{$[type]form.name}_nail" data-value="100"></div>
+<input type="hidden" class="form-control input text" id="{$[type]form.name}"  name="{$[type]form.name}" value="{$[type]form.value}" {$[type]form.extra_attr}>
+<script>
+$(function(){	
+$("#{$[type]form.name}_nail").ibosSlider({
+	min: {$[type]form.style.min},
+	max: {$[type]form.style.max},
+	scale: {$[type]form.style.scale},
+	range: 'min',
+	tip: true,
+	tipFormat: function(value) {
+		return value + '{$[type]form.style.unit}'	
+	},
+	target: '#{$[type]form.name}'
+});
+});
+</script>
+</case>

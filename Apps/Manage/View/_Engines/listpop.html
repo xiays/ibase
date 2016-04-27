@@ -1,0 +1,201 @@
+<!doctype html>
+<!--[if lt IE 9]>
+<html lang="en" class="ie8">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en">
+	<![endif]-->
+	<head>
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta charset=utf-8 />
+        <title>用户中心</title>
+		<link rel="shortcut icon" href="/static/image/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" href="/static/image/common/ios_icon.png">
+        <meta name="generator" content="IBOS 3.3" />
+        <meta name="author" content="IBOS Team" />
+        <meta name="copyright" content="2013 IBOS Inc." />
+		<!-- IE 8 以下跳转至浏览器升级页 -->
+		<!--[if lt IE 8]>
+			<script>
+				window.location.href = "/?r=main/default/unsupportedBrowser"
+			</script>
+		<![endif]-->
+		<!-- load css -->
+        <link rel="stylesheet" href="/static/css/base.css" />
+		<link rel="stylesheet" href="/static/css/common.css" />
+				<link rel="stylesheet" href="/static/css/skin/black.css" />		<link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/zTree/css/ibos/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/Select2/select2.css" />
+		<link rel="stylesheet" href="/static/css/call.css" />
+		<!-- IE8 fixed -->
+		<!--[if lt IE 9]>
+			<link rel="stylesheet" href="/static/css/iefix.css" />
+		<![endif]-->
+		<!-- load css end -->
+		<!-- JS全局变量-->
+			<script>
+var G = {"VERHASH":"","SITE_URL":"http:\/\/ibos\/","STATIC_URL":"\/static","cookiePath":"\/","":"","creditRemind":"","formHash":"","settings":{"notifyInterval":320},"contact":""}		</script>
+		<!-- 语言包 -->
+		<script src='/static/js/lang/zh-cn.js'></script>		<!-- 核心库类 -->
+		<script src='/static/js/core.js'></script>		
+		<script src="/static/js/base.js"></script>				
+		<script src="/static/js/lib/artDialog/artDialog.min.js"></script>
+		<script src="/static/js/lib/zTree/jquery.ztree.all-3.5.min.js"></script>
+		<script src="/static/js/lib/Select2/select2.js"></script>		
+		<script src="/static/js/common.js"></script>
+		<style>
+		.table td{
+		height:20px;
+		padding:1px 10px;
+		}
+		</style>
+	</head>
+	<body >
+	
+	<!-- Sidebar end -->
+	<!-- Mainer right -->
+	<div>
+	<notempty name="tab_nav">    
+              
+        <div class="mc-header">		
+		<!-- Mainer nav -->
+			<ul class="mnv nl clearfix">			
+			 <volist name="tab_nav.tab_list" id="tab">                       
+						<li class="<php>if($tab_nav['current_tab'] == $key) echo 'active';</php>">  
+							<a style="" href="{$tab.href}" >							
+							 <i class="glyphicon glyphicon-folder-<php>if($tab_nav['current_tab'] == $key) echo 'open' ;else echo 'close';</php> fsl" ></i>		
+							{$tab.title}</a>		
+					</li>
+                        </volist>	
+			</ul>
+		</div>
+    </notempty>
+		
+		<div class="page-list">
+			<div class="page-list-header">
+				<div class="btn-toolbar pull-left">
+				<notempty name="top_button_list">
+                    <div class="btn-toolbar pull-left">
+                        <volist name="top_button_list" id="button">
+                        <div class="btn-group">
+							<a {$button.attribute}>{$button.title}</a>&nbsp;		
+								</div>
+                            
+                        </volist>
+                    </div>
+                </notempty>		
+					
+					
+				</div>  
+                 <notempty name="search">
+                    <div class="search pull-right span3">                        
+                            <input id="search_input" type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}"  nofocus>
+            				 <a id="search" href="javascript:;" url="{$search.url}">search</a>                                          
+                    </div>  
+                     <script>
+				    $(document).ready(function() {
+				    	<notempty name="search_list">  
+				    	$("#search_input").search(null, function(){	
+				            Ui.dialog({
+				                id: "d_search_advanceh",
+				                title: '高级搜索',
+				                content: document.getElementById("search_advance"),
+				                cancel: true,
+				                init: function(){
+				                    var form = this.DOM.content.find("form")[0];
+				                    form && form.reset();
+				                    // 初始化日期选择
+				                   
+				                },
+				                ok: function(){
+				                    this.DOM.content.find("form").submit();
+				                },
+				            });
+				        });
+				    	 <else />   
+						    $("#search_input").search();
+						 </notempty>
+				    });
+				    </script>                  
+                </notempty>        
+			</div>
+			<div class="page-list-selectmainer art-list">
+                				<table class="table table-hover article-table" id="article_table">
+					<thead>
+						<tr>
+							<if condition="($is_check)"><th width="20">
+								<label class="checkbox"><span class="icon"></span><span class="icon-to-fade"></span>
+									<input type="checkbox" data-name="article[]">
+								</label>
+							</th></if>
+							
+							 <volist name="table_column_list" id="column">
+                                    <th>{$column.title|htmlspecialchars}</th>
+                                </volist>							
+							
+						</tr>
+					</thead>
+					<tbody>
+					<volist name="table_data_list" id="data">
+                                 <tr>
+                                      <if condition="($is_check)"><td><label class="checkbox"><input class="ids" type="checkbox" value="{$data[$table_data_list_key]}" name="ids[]"></label></td> </if>
+                                     <volist name="table_column_list" id="column">
+                                         <td>{$data[$column['name']]}</td>
+                                     </volist>
+                                 </tr>
+                             </volist>
+                    </tbody>
+				</table>
+				
+                			</div>
+                			<div class="page">    
+    	<ul class="pagination">                                       
+                 <notempty name="table_data_page">
+                    {$table_data_page}
+                 </notempty>
+        </ul>
+    	</div>
+            		</div>
+		<!-- Mainer content -->
+		
+	</div>
+
+
+<!-- 高级搜索 -->
+<notempty name="search_list">                
+                <div id="search_advance" style="width: 400px; display:none;">
+    <form id="mn_search_advance_form" action="{$search.url}" method="get">
+	<div class="form-horizontal form-compact">
+	<input name="advance" type="hidden" value="1"/>
+	<volist name="search_list" id="form" key="k"> 
+     <div class="control-group">
+			<label for="" class="control-label">{$form.title}</label>
+			<div class="controls">
+				 <switch name="form.type">  
+                <include file='../Apps/Common/Engines/widget/text.html' type='' /> 
+                <include file='../Apps/Common/Engines/widget/select.html' type='' />
+                <include file='../Apps/Common/Engines/widget/checkbox.html' type='' />
+                <include file='../Apps/Common/Engines/widget/radio.html' type='' />
+                {// 日期 }
+                <include file='../Apps/Common/Engines/widget/date.html' type='' />
+                 <include file='../Apps/Common/Engines/widget/ddate.html' type='' />
+                {// 时间 }
+                <include file='../Apps/Common/Engines/widget/time.html' type='' /> 
+            </switch>			
+			</div>
+		</div>       
+</volist>		
+	</div>
+    <input type="hidden" name="type" value="advanced_search">
+    </form>
+</div>  
+ </notempty>
+			<script>
+			function save(id,name)
+			{				
+				window.parent.{:I('get.backfun')}(id,$("#"+name+"_"+id).val());
+			}
+			</script>
+	</body>
+	</html>

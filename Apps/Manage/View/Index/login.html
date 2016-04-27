@@ -1,0 +1,181 @@
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset=utf-8 />
+        <title>登录</title>
+        <link rel="shortcut icon" href="/static/image/favicon.ico">
+        <meta name="generator" content="Ibase 1.0.0" />      
+        <meta name="copyright" content="2013 Ibase Inc." />
+        <!-- load css -->
+        <link rel="stylesheet" type="text/css" rev="stylesheet" href="/static/css/base.css" />
+        <link rel="stylesheet" type="text/css" rev="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css" />
+        <link rel="stylesheet" href="/static/manage/css/login.css">        
+    </head>
+    <body>
+        <!-- Header -->
+        <div class="header affix">
+            <div class="wrap">      
+                <div class="logo">
+                    <img src="/static/image/logo.png" alt="IBOS">
+                    <h1>我的企业</h1>
+                </div>
+                <div class="lg-sign pull-right"></div>
+            </div>
+        </div>
+        <div id="bgwrap" style="width: 100%; height: 100%;"><div id="bg" style="width: 100%; height: 900px; margin-top: -85.875px; margin-left: auto; display: block;">
+        <img src="/static/image/login_body.jpg" style="width: 100%; height: 100%;">
+        </div></div>
+        <!-- Mainer -->
+        <div class="wrap clearfix">
+            <div class="login-panel radius pull-right">
+				                <div class="login-type-content" id="login_type_content">
+                    <div class="normal-login-content">
+                        <form method="post" id="loginForm" action="" class="loginForm">
+							                            <div class="fill" id="login_panel">
+                                <div class="login-item">
+                                    <div class="input-group" id="account_wrap">
+                                        <span class="input-group-addon addon-icon input-large">
+                                            <i class="o-lg-user"></i>
+                                        </span>
+                                        <input type="text" tabIndex="101" id="account" class="input-large lg-acc-input" name="username" />
+                                    </div>
+                                </div>
+                                <div class="login-item">
+                                    <div class="input-group mbs">
+                                        <span class="input-group-addon addon-icon input-large">
+                                            <i class="o-lg-lock"></i>
+                                        </span>
+                                        <input type="password" id="password" tabIndex="102" class="input-large" name="password"/>
+                                    </div>
+                                    <div>
+																					<label class="checkbox checkbox-inline mbz">
+												<input type="checkbox" name="autologin" tabIndex="103"/>下次自动登录											</label>
+										                                    </div>
+                                </div> 
+                                <div>
+                                    <input type="submit" name="loginsubmit"  target-form="loginForm" value="登 录" tabIndex="104" class="btn btn-primary btn-large btn-block submit ajax-post">
+                                    <input type="hidden" name="cookietime" value="86400" />
+                                    <input type="hidden" name="formhash" value="" />
+                                    <input type="hidden" name="refer" value="/" />
+                                </div>
+                            </div>                           
+                        </form>   
+                    </div>
+					                </div>
+                <div class="login-panel-footer fill bglg bdrb">
+					                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="footer">
+            <div class="wrap">
+                <!-- Quick link -->
+                <div class="copyright">
+                    <div class="quick-link">
+                        <a target="_blank" href="http://doc.ibos.com.cn">IBOS 帮助</a>
+                        <span class="ilsep">|</span>
+                        <a target="_blank" href="http://bbs.ibos.com.cn">意见反馈</a>
+                        <span class="ilsep">|</span>
+                        <a target="_blank" href="/?r=dashboard" >管理中心</a>
+                        <span class="ilsep">|</span>
+                        <a href="javascript:;" data-action="showCert">授权证书</a>
+                        <span class="ilsep">|</span>
+                        <a target="_blank" href="http://www.ibos.com.cn/file/99">Chrome 框架</a>
+                        <span class="ilsep">|</span>
+                        <a href="javascript:;" data-action="appDownload">移动端下载</a>
+                    </div>
+                    Powered by <strong>Ibase 1.0.0</strong>
+											
+					                </div>
+            </div>
+        </div>
+        <!-- load script  -->
+        <script>
+			var G = {
+				VERHASH: 'fzQ',
+				SITE_URL: 'http://ibos/',
+				STATIC_URL: '/static',
+				formHash: '',
+				page: "login",
+				"loginBg": [
+"data/login/ibos_login1.jpg","data/login/ibos_login2.jpg"				]
+			};
+
+        </script>
+        <script src='/static/js/lang/zh-cn.js'></script> 
+        <script src='/static/js/core.js'></script>
+        <script src='/static/js/base.js'></script>
+        <script src='/static/js/lib/artDialog/artDialog.min.js'></script>
+        <script src='/static/js/lib/formValidator/formValidator.packaged.js'></script>
+        <script src='/static/js/lib/qrcode/jquery.qrcode.min.js'></script>
+        <script src='/static/js/common.js'></script>        
+        <!-- load script end -->
+       <script>
+      
+       $(function(){       
+       	
+       	// 登录背景
+       	var imgArr = Ibos.app.g("loginBg");
+
+       	// LoadImage and set Image fullscreen
+       	var bgNode = document.getElementById("bg"),
+       		bgWrap = bgNode.parentNode,
+       		index = Math.ceil(imgArr.length * Math.random()) - 1;
+       	$(document.body).waiting(null, "normal");
+
+    	U.loadImage(imgArr[index], function(img){
+    		var imgRatio = img.width / img.height;
+    		img.style.width = "100%";
+    		img.style.height = "100%";
+    		var setWrapSize = function(width, height){
+    			bgWrap.style.width = width + "px";
+    			bgWrap.style.height = height + "px";
+    		};
+    		var resize = function(ratio){
+    			var $doc = $(document),
+    				docWidth = $doc.width(),
+    				docHeight = $doc.height(),
+    				ImgTotalWidth,
+    				ImgTotalHeight;
+
+    			setWrapSize(docWidth, $(window).height());
+
+    			if (docWidth / docHeight > ratio){
+    				ImgTotalHeight = docWidth / ratio;
+    				// 适配宽度
+    				bgNode.style.width = docWidth + 'px';
+    				// 按图片比例放大高度，保持图片不变形
+    				bgNode.style.height = ImgTotalHeight + 'px';
+    				// 图片垂直居中
+    				bgNode.style.marginTop = (docHeight - ImgTotalHeight) / 2 + 'px';
+    				bgNode.style.marginLeft = 'auto';
+    			} else {
+    				ImgTotalWidth = docHeight * ratio;
+    				// 适配高度
+    				bgNode.style.height = docHeight + 'px';
+    				// bgNode.style.height = docHeight + 'px';
+    				// 按图片比例放大高度，保持图片不变形
+    				bgNode.style.width = ImgTotalWidth + 'px';
+    				// 图片水平居中
+    				bgNode.style.marginLeft = (docWidth - ImgTotalWidth) / 2 + 'px';
+    				bgNode.style.marginTop = 'auto';
+    			}
+    			$(document.body).stopWaiting();
+    			$(bgNode).fadeIn();
+    		};
+
+    		resize(imgRatio);
+    		window.onresize = function(){
+    			setWrapSize(0, 0);
+    			resize(imgRatio);
+    		};
+    		bgNode.appendChild(img);
+       });
+
+
+       </script>
+		
+    </body>
+</html>

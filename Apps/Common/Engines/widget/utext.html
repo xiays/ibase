@@ -1,0 +1,32 @@
+<case value="utext">
+<case value="simditor">
+     <textarea name="{$[type]form.name}" id="[type]{$group_k}_kindeditor_{$[type]k}" class="form-control" {$[type]form.extra_attr}>
+{$[type]form.value}
+    </textarea>    
+    <script type="text/javascript">
+        $(function(){
+            KindEditor.ready(function(K) {
+                kindeditor_{$[type]k} = K.create('#[type]{$group_k}_kindeditor_{$[type]k}', {
+                	themeType : 'simple',                	                    
+                    width : '100%',
+                    height : '0px',
+                    minHeight : '30',
+                    newlineTag:' ',
+                    cssPath : [                        
+                        '/static/js/lib/kindeditor/plugins/code/prettify.css'
+                    ],
+                    resizeType: 0,
+                    pasteType : 1,
+                    urlType : 'absolute',                   
+                    extraFileUploadParams: {
+                        session_id : '{:session_id()}'
+                    },
+                    items : [
+     						'source','|','fontname', 'fontsize',  'forecolor', 'hilitecolor', 'bold', 'italic', 'underline'
+     						]
+                });
+            });
+        });
+    </script>
+</case>
+</case>

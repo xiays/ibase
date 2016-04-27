@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<!-- load css -->
+		<link rel="stylesheet" href="/static/css/base.css">
+		<!-- IE8 fixed -->
+		<!--[if lt IE 9]>
+		<link rel="stylesheet" href="/static/css/iefix.css">
+		<![endif]-->
+		<link rel="stylesheet" href="/static/admin/css/common.css">
+		<link rel="stylesheet" href="/static/js/lib/zTree/css/ibos/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/Select2/select2.css" />
+		<link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css" />
+		<script>
+						var G = {
+				VERHASH: 'UqX',
+				SITE_URL: 'http://ibos/',
+				STATIC_URL: '/static',
+				cookiePre: 'U979_',
+				cookiePath: '/',
+				cookieDomain: '',
+				creditRemind: '1|经验,2|金钱,3|贡献',
+				formHash: 'a681598e',
+								uid: '1',
+				contact: '',
+								password: {
+					minLength: "5",
+					maxLength: 32,
+					regex: "^[A-Za-z0-9\!\@\#$\%\^\&\*\.\~]{5,32}$"
+				}
+			};
+		</script>
+		<!-- 核心库类 -->
+		<script src='/static/js/core.js'></script>
+		<!-- 语言包 -->
+		<script src='/static/js/lang/zh-cn.js'></script>
+		<script src='/static/js/base.js'></script>
+		<script src='/static/js/lib/artDialog/artDialog.min.js'></script>
+		<script src='/static/js/lib/zTree/jquery.ztree.all-3.5.min.js'></script>
+		<script src='/static/js/lib/Select2/select2.js'></script>
+		<script src='data/org.js'></script>
+		<script src='/static/js/common.js'></script>
+		<script src='/static/js/app/ibos.userSelect.js'></script>
+		<script src='/static/js/application.js'></script>
+		<script src="/static/admin/js/lang/zh-cn.js"></script>
+	</head>
+	<body>
+		<link rel="stylesheet" href="/static/admin/css/home.css">
+<div class="ct">
+    <div class="clearfix">
+        <h1 class="mt"></h1>
+    </div>
+    <div>
+        <!-- 系统信息 start -->
+        <div class="ctb ctbp ">
+            <h2 class="st">系统信息</h2>
+            <div class="clearfix system-info-wrap" id="switch_status">
+                <div class="card-circle card-circle-success pull-left">
+                    <i class="card-circle-icon"></i>
+                    <p>状态良好</p>
+                </div>
+                <div class="card-circle card-circle-danger pull-left">
+                    <i class="card-circle-icon"></i>
+                    <p>未开启</p>
+                </div>
+                <div class="system-info">
+                    <div class="b">
+                        <strong>IBOS 3.3</strong>
+                        <span class="system-info-date">5789</span>
+                                            </div>
+                    <div>
+                        <div class="pull-left">
+                            <div>
+                                <input id="system_switch" type="checkbox" checked value="1" data-toggle="switch">
+                            </div>
+                        </div>
+                        <div class="pull-left">
+                            <span class="pull-left">已稳定运行</span>
+                            <div id="tally" class="date-tally" data-date="365"></div>
+                            天                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 服务器 start -->
+        <div class="ctb ctbp">
+            <h2 class="st">服务器</h2>
+            <div class="clearfix">
+                <ul class="card-list">
+                    <li>
+                        <div class="card-radius">
+                                                        <img src="/static/admin/image/env/windows.png" alt="Windows NT" title="Windows NT">
+                            <p>
+                                <strong title="Windows NT">Windows NT</strong>
+                            </p>
+                            <p>系统</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-radius">
+                                                        <img src="/static/admin/image/env/apache.png" alt="apache" title="apache">
+                            <p>
+                                <strong title="2.4.10">2.4.10</strong>
+                            </p>
+                            <p>WEB服务器</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-radius">
+                            <img src="/static/admin/image/env/php.png" alt="PHP" title="PHP">
+                            <p>
+                                <strong title="5.4.33">5.4.33</strong>
+                            </p>
+                            <p>脚本引擎</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-radius">
+                                                        <img src="/static/admin/image/env/mysql.png" alt="mysql" title="mysql">
+                            <p>
+                                <strong title="5.5.44-log">5.5.44-log</strong>
+                            </p>
+                            <p>数据库</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-radius">
+                            <img src="/static/admin/image/env/upload.png" alt="上传限制" title="上传限制">
+                            <p>
+                                <strong title="128M">128M</strong>
+                            </p>
+                            <p>上传限制</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 容量大小 start -->
+        <div class="ctb ctbp">
+            <h2 class="st">容量大小</h2>
+            <div class="clearfix">
+                <ul class="card-list">
+                    <li>
+                        <div class="card-circle">
+                            <p>数据库</p>
+                            <p>
+                                <strong>1.43</strong>
+                            </p>
+                            <p>MB</p>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="card-circle">
+                            <p>附件</p>
+                                                            <p><a href="/?r=dashboard/index/index&attachsize=1">点击查看</a></p>
+                                                    </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 联系我们 start -->
+        <div class="ctb ctbp">
+            <h2 class="st">联系我们</h2>
+            <div id="securityTips">ioacrm</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var _ib = _ib || [];
+    _ib.push(['authkey', '04ad1ea99a8g4a42']);
+    _ib.push(['datasize', '1.43MB']);
+    _ib.push(['system', 'Windows NT']);
+    _ib.push(['server', 'apache']);
+    _ib.push(['type', 'dashboardlogin']);
+    (function () {
+        var ib = document.createElement('script');
+        ib.type = 'text/javascript';
+        ib.async = true;
+        ib.src = 'http://www.ibos.com.cn/Public/static/ib.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ib, s);
+    })();
+</script>
+<script>
+    Ibos.app.s({
+        "installTime": 1456803952,
+        "nowTime": 1457602051,
+        "assetUrl": '/static/admin'
+    });
+</script>
+<script src='/static/js/lib/formValidator/formValidator.packaged.js'></script>
+
+	</body>
+</html>

@@ -1,0 +1,12 @@
+<case value="num">
+    <input type="text" class="form-control input num" id="{$[type]form.name}" name="{$[type]form.name}" value="{$[type]form.value}" {$[type]form.extra_attr}>
+    <script type="text/javascript">  
+$(function(){     
+	$("#{$[type]form.name}").keyup(function(){            	
+	$(this).val($(this).val().replace(/[^0-9.]/g,''));                    
+	}).bind("paste",function(){  //CTR+V事件处理    
+	$(this).val($(this).val().replace(/[^0-9.]/g,''));     
+	}); 
+});    
+</script>
+</case>

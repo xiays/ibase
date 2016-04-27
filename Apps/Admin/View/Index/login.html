@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>后台登陆</title>
+        <link rel="shortcut icon" href="/static/image/favicon.ico">        <!-- load css -->
+        <link rel="stylesheet" href="/static/css/base.css">        
+        <link rel="stylesheet" href="/static/admin/css/login.css">
+    </head>
+    <body>
+        <div class="full">
+            <div class="bg">
+                <img id="bg" src="/static/admin/image/bg_body.jpg" alt="" style="display:none;">
+            </div>
+            <div class="mainer">
+                <div class="login-wrap">
+                    <h1 class="logo">
+                       
+                    </h1>
+                    <div class="login shadow radius well well-white">
+                        <form id="loginForm" method="post" action="" class="loginForm">
+                            <div class="login-group">
+                                <label>账号</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon addon-icon input-large">
+                                        <i class="glyphicon-user"></i>
+                                    </span>
+                                    <input type="text"  name="username" id="login_user" class="input-large">
+                                </div>
+                            </div>
+                            <div class="login-group">
+                                <label>密码</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon addon-icon input-large">
+                                        <i class="glyphicon-lock"></i>
+                                    </span>
+                                    <input type="password" class="input-large" id="login_pass" name="password" >
+                                </div>
+                            </div>
+                            <div class="login-group login-btn">
+                                <button id="submit-btn" type="submit" data-loading-text="登录中..." 
+                                   target-form="loginForm"     name="loginsubmit" class="btn btn-primary submit ajax-post btn-large btn-block">
+                                            登录                                </button>
+                            </div>
+                            <input type="hidden" name="formhash" value="">
+                            <input type="hidden" name="refer" value="">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="footer">
+                Powered by <strong>ibase 1.0.0</strong>
+            </div>
+        </div>
+        <!-- load js -->
+        <script src="/static/js/core.js"></script>
+        <script src="/static/js/base.js"></script>
+        <script src="/static/js/common.js"></script>   
+        <script>
+        /**
+         * 后台登录
+         * Dashboard/Login
+         * @author inaki
+         * @version $Id$
+         */
+
+        (function(){
+        	var resizeBackground = function(img){
+        		var $win = $(window),
+        			winWidth = $win.width(),
+        			winHeight = $win.height(),
+        			imgWidth, imgHeight,
+        			resize = function(){
+        				imgWidth = img.width;
+        				imgHeight = img.height;
+        				// 适配高度
+        				if(imgWidth / imgHeight >= winWidth / winHeight){
+        					img.style.height = winHeight + 'px';
+        					img.style.width = 'auto';
+
+        				// 适配宽度
+        				} else {
+        					img.style.width = winWidth + 'px';
+        					// 高度自适应
+        					img.style.height = 'auto';
+        				}
+        				$(img).fadeIn();
+        			};
+        		if(img.complete){
+        			resize();
+        		}else{
+        			img.onload = resize;
+        		}
+        	}
+
+        	setTimeout(function() {
+        		if ($('#login_user').val() == '') {
+        			$("#login_user").focus();
+        		} else {
+        			$('#login_pass').focus();
+        		}
+        	}, 0);
+
+        	// 此处不能使用 "==="， Ie8 下最顶层window !== window.top
+        	if (window != window.top) {
+        		var requertUrl = window.location.href;
+        		var loginUrl = $("#loginForm").attr('action');
+        		if (requertUrl.indexOf(loginUrl) > -1) {
+        			// 如果子框架访问的是后台登陆页，顶层框架页面跳转到后台登陆页
+        			window.top.location.href = requertUrl;
+        		}
+        	}
+
+        	var img = document.getElementById("bg");
+        	window.onload =	window.onresize = function(){
+        		resizeBackground(img);
+        	}
+        	
+        })();
+
+        </script>     
+    </body>
+</html>	

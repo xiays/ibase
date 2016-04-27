@@ -1,0 +1,126 @@
+<extend name="_Layout/main"/>
+<block name="main">
+<div class="mtw">
+						<h2 class="mt pull-left">{$meta_title}</h2>
+						<span class="pull-right">{$data.time|default=time()|date='Y年m月d日',###}，{$Think.now|getWeekName}</span>
+					</div>
+<div class="mc clearfix">
+<div class="aside">
+	<div class="sbbf">
+		<ul class="nav nav-strip nav-stacked">
+			<volist name="__TREE_MENU2__" id="list">
+		    <li class="<notempty name="list.active">active</notempty>">		     
+				<a href="{$list.url|U}">
+					<i class="glyphicon {$list.ico}"></i>
+					{$list.name}
+									</a>
+					<notempty name="list.child">
+					<div class="sbb sbbf">
+					<ul class="aside-list">
+					<volist name="list.child" id="list1">
+					<li class="<notempty name="list.active">active</notempty>">
+							<a href="{$list1.url|U}"><i class="glyphicon {$list1.ico}"></i>
+								{$list1.name}</a>
+					</li>
+					</volist>
+					</ul>
+					</div>
+					</notempty>				
+			</li>
+		    </volist>			
+		</ul>
+	</div>
+</div>
+<div class="mcr">
+ <notempty name="tab_nav">
+		 <ul class="mn">
+		  <volist name="tab_nav.tab_list" id="tab">
+		  <php>if($tab_nav['current_tab'] == $key) {</php>
+			<li>
+				<span>{$tab.title}</span>
+			</li>
+			<php>} else {</php>			
+			<li>
+				<a href="{$tab.href}">{$tab.title}</a>
+			</li>
+			<php>} </php>
+			</volist>
+		</ul>
+		<else />
+		<div class="mc-header">
+				<div class="mc-header-info clearfix">
+					<div class="usi-terse">
+						<a href="" class="avatar-box">
+							<span class="avatar-circle">
+								<img class="mbm" src="{$__USERINFO__.avatar}" alt="">
+							</span>
+						</a>
+						<span class="usi-terse-user">{$__USERNAME__}</span>
+						<span class="usi-terse-group"></span>
+					</div>
+				</div>
+			</div>
+    </notempty>
+			 <notempty name="tip_html"> 
+			<div class="alert trick-tip">
+					<div class="trick-tip-title">
+						<i></i>
+						<strong>提示</strong>
+					</div>
+					<div class="trick-tip-content">
+						<ul>
+					<li>{$tip_html}</li>
+				  </ul>					</div>
+			</div>
+			</notempty>
+		<div class="ct ctform ">			                
+                    <volist name="form_items" id="form" key="k">
+                    <php>if($form['style']['position']==0):</php>    
+                     <div class="field-title">
+                     <h4>{$form.title}</h4>
+                     </div>
+                    <php>endif;</php>
+                    <php>if($form['style']['rowbegin']==1):</php>    
+                    <div class="row">
+                    <php>endif;</php>
+                    
+                    <php>if($form['style']['position']==1):</php> 
+                    <div class="span{$form.style.width}">                  	    
+                    <div class="control-group" style="margin-bottom:0px;">                      
+                    <php>if($form['type'] != 'group' && $form['type'] != 'hidden'):</php>
+                                <label >{$form.title}</label>
+                            <php>endif;</php>                           
+						
+							<switch name="form.type"><include file='../Apps/Common/Engines/widget/hidden.html' type='' />                                   
+                                    <include file='../Apps/Common/Engines/widget/viewlabel.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/viewpicture.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/viewdate.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/viewdiv.html' type='' />
+                            </switch>
+						
+					</div>
+					</div>
+					<php>endif;</php>					
+					<php>if($form['style']['rowend']==1):</php>    
+                    </div>
+                    <php>endif;</php>
+                    </volist>                    
+                    <div class="control-group">
+						<label class="control-label"></label>
+						<div class="controls">							
+							                        <button class="btn btn-default btn-large return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
+						</div>
+					</div>                 
+                    <div class="form-group">                        
+                        
+                    </div>
+			
+			</div>	
+
+</div>
+
+
+
+{// 额外功能代码 }
+{$extra_html}
+</block>

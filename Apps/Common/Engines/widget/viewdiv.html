@@ -1,0 +1,16 @@
+<case value="viewdiv">
+<div class="alert alert-div" {$[type]form.extra_attr}><?php 
+if(is_array($[type]form['options']) && $[type]form['options']!=array()) {
+    if($[type]form['value']=='')
+{
+	echo  $[type]form['options'][0];
+}
+else
+{
+	echo  $[type]form['options'][$[type]form['value']];
+}
+} else { 
+	echo $[type]form['value'];
+}
+?>&nbsp;</div>    
+</case>

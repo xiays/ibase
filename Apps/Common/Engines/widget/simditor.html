@@ -1,0 +1,38 @@
+<case value="simditor">
+     <textarea name="{$[type]form.name}" id="[type]{$group_k}_kindeditor_{$[type]k}" class="form-control" {$[type]form.extra_attr}>
+{$[type]form.value}
+    </textarea>    
+    <script type="text/javascript">
+        $(function(){
+            KindEditor.ready(function(K) {
+                kindeditor_{$[type]k} = K.create('#[type]{$group_k}_kindeditor_{$[type]k}', {
+                    allowFileManager : true,
+                    filePostName : 'file',
+                    width : '100%',
+                    height : '300px',
+                    cssPath : [                        
+                        '/static/js/lib/kindeditor/plugins/code/prettify.css'
+                    ],
+                    resizeType: 1,
+                    pasteType : 2,
+                    urlType : 'absolute',
+                    fileManagerJson : '{:U(C("MODULE_MARK")."/Upload/fileManager")}',
+                    uploadJson : '{:U(C("MODULE_MARK")."/PublicUpload/upload")}',
+                    remoteImgSaveUrl: '{:U(C("MODULE_MARK")."/Upload/downremoteimg")}',
+                    extraFileUploadParams: {
+                        session_id : '{:session_id()}'
+                    },
+                    items : [
+     						'source', '|','fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold', 'italic', 'underline',
+     						'removeformat', '|', 'justifyleft', 'justifycenter', 'justifyright', 'insertorderedlist',
+     						'insertunorderedlist', '|', 'emoticons', 'image', 'link'],
+                    afterBlur: function(){this.sync();},                    
+                    autoSaveInterval:100,
+                    afterCreate: function() {
+                        this.loadPlugin('autosave');
+                    }
+                });
+            });
+        });
+    </script>
+</case>

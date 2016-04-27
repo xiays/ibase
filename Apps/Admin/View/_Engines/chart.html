@@ -1,0 +1,108 @@
+<extend name="_Layout/main"/>
+<block name="main">
+<script type="text/javascript" src="/static/js/lib/ichartjs/ichart.1.2.1.min.js"></script>
+<div class="builder builder-list-box">
+
+    <!-- Tab导航 -->
+    <notempty name="tab_nav">
+        <div class="builder-tabs builder-list-tabs">
+            <div class="row">
+                <div class="col-xs-12">
+                    <ul class="nav nav-tabs">
+                        <volist name="tab_nav.tab_list" id="tab">
+                            <li class="<php>if($tab_nav['current_tab'] == $key) echo 'active';</php>"><a href="{$tab.href}">{$tab.title}</a></li>
+                        </volist>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </notempty>
+
+    <!-- 顶部工具栏按钮 -->
+    <notempty name="top_button_list">
+        <div class="builder-toolbar builder-list-toolbar">
+            <div class="row">
+                <!-- 工具栏按钮 -->
+                <notempty name="top_button_list">
+                    <div class="col-xs-12 col-sm-9 button-list">
+                        <volist name="top_button_list" id="button">
+                            <a {$button.attribute}>{$button.title}</a>&nbsp;
+                        </volist>
+                    </div>
+                </notempty>
+
+                <!-- 搜索框 -->
+                <notempty name="search">
+                    <div class="col-xs-12 col-sm-3">
+                        <div class="input-group search-form">
+                            <input type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}">
+                            <span class="input-group-btn"><a class="btn btn-primary" href="javascript:;" id="search" url="{$search.url}"><i class="fa fa-search"></i></a></span>
+                        </div>
+                    </div>
+                </notempty>
+            </div>
+        </div>
+    </notempty>
+
+<notempty name="search_list">
+   <div class="builder-toolbar builder-list-toolbar builder-search-list">  
+<volist name="search_list" id="form" key="k">    
+         <div class="searchcontrols">
+        <label class="item-label" style="float:left; padding-left:10px;">{$form.title}</label> 
+         <div style="float:left;">       
+            <switch name="form.type">
+                <include file='../Application/Common/Builder/widget/hidden.html' type='' />
+                {// 数字 }
+                <include file='../Application/Common/Builder/widget/num.html' type='' />
+                {// 字符串 }
+                <include file='../Application/Common/Builder/widget/text.html' type='' />
+                <include file='../Application/Common/Builder/widget/selectdiv.html' type='' />
+                {// 文本 }
+                <include file='../Application/Common/Builder/widget/textarea.html' type='' />
+                {// 数组 }
+                <include file='../Application/Common/Builder/widget/array.html' type='' />                
+                {// 单选按钮 }
+                <include file='../Application/Common/Builder/widget/radio.html' type='' />
+                {// 复选框 }
+                <include file='../Application/Common/Builder/widget/checkbox.html' type='' />
+                {// 下拉框 }
+                <include file='../Application/Common/Builder/widget/select.html' type='' />               
+                {// 日期 }
+                <include file='../Application/Common/Builder/widget/date.html' type='' />
+                <include file='../Application/Common/Builder/widget/ddate.html' type='' />
+                {// 时间 }
+                <include file='../Application/Common/Builder/widget/time.html' type='' /> 
+            </switch>
+            </div>
+     </div>   
+</volist>
+	<div class="searchcontrols">
+	 <input type="button" class="form-control w80 input btn-primary" name="list-search" id="list-search" url="{$search.url}" value="查询" >
+	     </div>
+	</div>
+ </notempty>
+    <!-- 数据列表 -->
+    <div class="builder-container builder-list-container">
+        <div class="row">
+            <div class="col-xs-12">
+
+                <div class="builder-table">
+                    <div class="panel panel-default">
+                     <br>
+                             <div id='canvasDiv'></div>
+                             
+                            
+             <br>
+                    </div>
+                   
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+ 
+    <!-- 额外功能代码 -->
+    {$extra_html}
+</div>
+</block>

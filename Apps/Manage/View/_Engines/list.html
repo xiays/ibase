@@ -1,0 +1,176 @@
+<extend name="_Layout/main"/>
+<block name="main">
+<div class="mtw">
+	<h2 class="mt pull-left">{$meta_title}</h2>
+	<span class="pull-right">{$data.time|default=time()|date='Y年m月d日',###}，{$Think.now|getWeekName}</span>
+</div>
+<!-- Mainer -->
+<div class="mc clearfix">
+	<!-- Sidebar -->
+<div class="aside">
+	<div class="sbbf">
+		<ul class="nav nav-strip nav-stacked">
+		    <volist name="__TREE_MENU2__" id="list">
+		    <li class="<notempty name="list.active">active</notempty>">		     
+				<a href="{$list.url|U}">
+					<i class="glyphicon {$list.ico}"></i>
+					{$list.name}
+									</a>
+					<notempty name="list.child">
+					<div class="sbb sbbf">
+					<ul class="aside-list">
+					<volist name="list.child" id="list1">
+					<li class="<notempty name="list.active">active</notempty>">
+							<a href="{$list1.url|U}"><i class="glyphicon {$list1.ico}"></i>
+								{$list1.name}</a>
+					</li>
+					</volist>
+					</ul>
+					</div>
+					</notempty>				
+			</li>
+		    </volist>			
+		</ul>
+	</div>
+</div>
+	
+	<!-- Sidebar end -->
+	<!-- Mainer right -->
+	<div class="mcr">
+	<notempty name="tab_nav">    
+              
+        <div class="mc-header">		
+		<!-- Mainer nav -->
+			<ul class="mnv nl clearfix">			
+			 <volist name="tab_nav.tab_list" id="tab">                       
+						<li class="<php>if($tab_nav['current_tab'] == $key) echo 'active';</php>">  
+							<a style="" href="{$tab.href}" >							
+							 <i class="glyphicon glyphicon-folder-<php>if($tab_nav['current_tab'] == $key) echo 'open' ;else echo 'close';</php> fsl" ></i>		
+							{$tab.title}</a>		
+					</li>
+                        </volist>	
+			</ul>
+		</div>
+    </notempty>
+		
+		<div class="page-list">
+			<div class="page-list-header">
+				<div class="btn-toolbar pull-left">
+				<notempty name="top_button_list">
+                    <div class="btn-toolbar pull-left">
+                        <volist name="top_button_list" id="button">
+                        <div class="btn-group">
+							<a {$button.attribute}>{$button.title}</a>&nbsp;		
+								</div>
+                            
+                        </volist>
+                    </div>
+                </notempty>		
+					
+					
+				</div>  
+                 <notempty name="search">
+                    <div class="search pull-right span3">                        
+                            <input id="search_input" type="text" name="keyword" class="search-input form-control" value="{$_GET.keyword}" placeholder="{$search.title}"  nofocus>
+            				 <a id="search" href="javascript:;" url="{$search.url}">search</a>                                          
+                    </div>  
+                     <script>
+				    $(document).ready(function() {
+				    	<notempty name="search_list">  
+				    	$("#search_input").search(null, function(){	
+				            Ui.dialog({
+				                id: "d_search_advanceh",
+				                title: '高级搜索',
+				                content: document.getElementById("search_advance"),
+				                cancel: true,
+				                init: function(){
+				                    var form = this.DOM.content.find("form")[0];
+				                    form && form.reset();
+				                    // 初始化日期选择
+				                   
+				                },
+				                ok: function(){
+				                    this.DOM.content.find("form").submit();
+				                },
+				            });
+				        });
+				    	 <else />   
+						    $("#search_input").search();
+						 </notempty>
+				    });
+				    </script>                  
+                </notempty>        
+			</div>
+			<div class="page-list-mainer art-list">
+                				<table class="table table-hover article-table" id="article_table">
+					<thead>
+						<tr>
+							<if condition="($is_check)"><th width="20">
+								<label class="checkbox"><span class="icon"></span><span class="icon-to-fade"></span>
+									<input class="check-all" type="checkbox" data-name="article[]">
+								</label>
+							</th></if>							
+							 <volist name="table_column_list" id="column">
+                                    <th>{$column.title|htmlspecialchars}</th>
+                                </volist>							
+							
+						</tr>
+					</thead>
+					<tbody>
+					<volist name="table_data_list" id="data">
+                                 <tr>
+                                      <if condition="($is_check)"><td><label class="checkbox"><input class="ids" type="checkbox" value="{$data[$table_data_list_key]}" name="ids[]"></label></td> </if>
+                                     <volist name="table_column_list" id="column">
+                                         <td>{$data[$column['name']]}</td>
+                                     </volist>
+                                 </tr>
+                             </volist>
+                    </tbody>
+				</table>
+                			</div>
+            		</div>
+		<!-- Mainer content -->
+		<div class="page">    
+    	<ul class="pagination">                                       
+                 <notempty name="table_data_page">
+                    {$table_data_page}
+                 </notempty>
+        </ul>
+    </div>
+	</div>
+
+
+<!-- 高级搜索 -->
+<notempty name="search_list">                
+                <div id="search_advance" style="width: 400px; display:none;">
+    <form id="mn_search_advance_form" action="{$search.url}" method="get">
+	<div class="form-horizontal form-compact">
+	<input name="advance" type="hidden" value="1"/>
+	<volist name="search_list" id="form" key="k"> 
+     <div class="control-group">
+			<label for="" class="control-label">{$form.title}</label>
+			<div class="controls">
+				 <switch name="form.type">  
+                <include file='../Apps/Common/Engines/widget/text.html' type='' /> 
+                <include file='../Apps/Common/Engines/widget/select.html' type='' />
+                <include file='../Apps/Common/Engines/widget/checkbox.html' type='' />
+                <include file='../Apps/Common/Engines/widget/radio.html' type='' />
+                {// 日期 }
+                <include file='../Apps/Common/Engines/widget/date.html' type='' />
+                 <include file='../Apps/Common/Engines/widget/ddate.html' type='' />
+                {// 时间 }
+                <include file='../Apps/Common/Engines/widget/time.html' type='' /> 
+            </switch>			
+			</div>
+		</div>       
+</volist>		
+	</div>
+    <input type="hidden" name="type" value="advanced_search">
+    </form>
+</div>  
+ </notempty>
+
+<!-- load script -->
+<!-- load script end -->
+<!-- Mainer end -->
+</block>

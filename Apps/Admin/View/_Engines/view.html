@@ -1,0 +1,80 @@
+<extend name="_Layout/main"/>
+<block name="main">
+<div class="builder builder-form-box">
+    <notempty name="tab_nav">
+        <div class="builder-tabs builder-form-tabs">
+            <ul class="nav nav-tabs">
+                <volist name="tab_nav.tab_list" id="tab">
+                    <li class="<php>if($tab_nav['current_tab'] == $key) echo 'active';</php>"><a href="{$tab.href}">{$tab.title}</a></li>
+                </volist>
+            </ul>
+        </div>
+    </notempty>
+
+    {// 数据列表 }
+    <div class="builder-container builder-form-container">
+
+        <div class="row">
+         
+            <div class="col-xs-12">
+                
+                   <div class="form-group">                        
+                        <button class="btn btn-primary return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
+                    </div>
+                    
+                    <volist name="form_items" id="form" key="k"> 
+                    <div class="<if condition="$form.type eq 'div2'">box50<else />box100</if>">
+<div class="box48">
+<div class="<if condition="$form.type eq 'div2'">box_left<else />box100_left</if>"
+<switch name="form.tip">
+<case value="1">
+style ="background:#A8A8A8"                                       
+</case>
+<case value="2">
+style ="background:#C0D9D9"                                       
+</case>
+<case value="3">
+style ="background:#D9D9F3"                                       
+</case>
+<case value="4">
+style ="background:#D8D8BF"                                       
+</case>
+<case value="5">
+style ="background:#CD7F32"                                       
+</case>
+ </switch>
+> {$form.title} </div>
+<div class="<if condition="$form.type eq 'div2'">box_right<else />box100_right</if>"><div class="box_righttext">
+  							<switch name="form.type">
+                                    <include file='../Apps/Common/Engines/widget/hidden.html' type='' />                                    
+                                    <include file='../Apps/Common/Engines/widget/label.html' type='' />                                    
+                                    <include file='../Apps/Common/Engines/widget/div.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/div2.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/divall.html' type='' />
+                                    <include file='../Apps/Common/Engines/widget/viewfiles.html' type='' />
+                                    <case value="group">
+                                               <volist name="form.options" id="li" key="group_k">                                                 
+                                                </volist>                       
+                                    </case>
+                                </switch>&nbsp;</div></div>
+</div>
+</div>          </volist>
+                    <empty name="form_items">
+                        <div class="builder-data-empty text-center">
+                            <div class="empty-info">
+                                <i class="fa fa-database"></i> 暂时没有数据<br>
+                                <span class="small">本系统由 <a href="{:C('WEBSITE_DOMAIN')}" class="text-muted" target="_blank">{:C('PRODUCT_NAME')}</a> v{:C('CURRENT_VERSION')} 强力驱动</span>
+                            </div>
+                        </div>
+                    </empty>
+           
+            </div>
+        </div>
+    </div>
+<div class="form-group">                        
+                        <button class="btn btn-primary return visible-md-inline visible-lg-inline" onclick="javascript:history.back(-1);return false;">返回</button>
+                    </div>
+    {// 额外功能代码 }
+    {$extra_html}
+</div>
+</block>

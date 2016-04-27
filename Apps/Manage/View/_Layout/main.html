@@ -1,0 +1,190 @@
+<!doctype html>
+<!--[if lt IE 9]>
+<html lang="en" class="ie8">
+<![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="en">
+	<![endif]-->
+	<head>
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <meta charset=utf-8 />
+        <title><notempty name="meta_title">用户中心-{$meta_title}<else />用户中心</notempty></title>
+		<link rel="shortcut icon" href="/static/image/favicon.ico">
+		<link rel="apple-touch-icon-precomposed" href="/static/image/common/ios_icon.png">
+        <meta name="generator" content="IBOS 3.3" />
+        <meta name="author" content="IBOS Team" />
+        <meta name="copyright" content="2013 IBOS Inc." />
+		<!-- IE 8 以下跳转至浏览器升级页 -->
+		<!--[if lt IE 8]>
+			<script>
+				window.location.href = "/?r=main/default/unsupportedBrowser"
+			</script>
+		<![endif]-->
+		<!-- load css -->
+        <link rel="stylesheet" href="/static/css/base.css" />
+		<link rel="stylesheet" href="/static/css/common.css" />
+				<link rel="stylesheet" href="/static/css/skin/black.css" />		<link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/artDialog/skins/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/zTree/css/ibos/ibos.css" />
+		<link rel="stylesheet" href="/static/js/lib/Select2/select2.css" />
+		<link rel="stylesheet" href="/static/css/call.css" />
+		<!-- IE8 fixed -->
+		<!--[if lt IE 9]>
+			<link rel="stylesheet" href="/static/css/iefix.css" />
+		<![endif]-->
+		<!-- load css end -->
+		<!-- JS全局变量-->
+			<script>
+var G = {"VERHASH":"","SITE_URL":"http:\/\/ibos\/","STATIC_URL":"\/static","cookiePath":"\/","":"","creditRemind":"","formHash":"","settings":{"notifyInterval":320},"contact":""}		</script>
+		<!-- 语言包 -->
+		<script src='/static/js/lang/zh-cn.js'></script>		<!-- 核心库类 -->
+		<script src='/static/js/core.js'></script>		
+		<script src="/static/js/base.js"></script>				
+		<script src="/static/js/lib/artDialog/artDialog.min.js"></script>
+		<script src="/static/js/lib/zTree/jquery.ztree.all-3.5.min.js"></script>
+		<script src="/static/js/lib/Select2/select2.js"></script>		
+		<script src="/static/js/common.js"></script>		
+		<script src="/static/js/application.js"></script>
+
+	</head>
+	<body class="ibbody">
+		<div class="ibcontainer">
+			<!-- Header -->
+			<div class="header" id="header">
+				<div class="wrap">		
+					<div class="logo">
+												<a href="http://ibos/"><img src="/static/image/logo.png" alt="IBOS" height="40"></a>
+					</div>
+					<!-- Nav -->
+											<div class="nvw" id="nvw">
+							<ul class="nv nl" id="nv">
+							 <volist name="__TREE_MENU__" id="list">
+							 	<li data-target="#sub_nav_{$list.id}" data-id="{$list.id}">
+							 	<PHP>if ($list['showtop']==1) {</PHP>
+										<a href="javascript:void(0)" target="_self">{$list.name}</a>
+										<PHP>} else{</PHP>
+										<a href="{:U($list['url'])}" target="_self">{$list.name}</a>
+										<PHP>} </PHP>
+								</li>
+							 </volist>
+								</ul>
+						</div>
+						<div id="subnv_wrap"> 
+						 <volist name="__TREE_MENU__" id="list">
+						 <PHP>if ($list['showtop']==1) {</PHP>
+							 <ul class="subnv" id="sub_nav_{$list.id}" data-pid="{$list.id}">
+									<volist name="list.child" id="list1">
+										<li><a target="_self" href="{:U($list1['url'])}" data-id="10">	{$list1.name}</a></li>
+									</volist>
+							</ul>
+						 <PHP>} </PHP>
+						  </volist>
+																				
+																																																																	</div>
+
+					<!-- Nav end -->
+					<div class="usi">
+						<div class="btn-group">
+							<a href="javascript:;" data-toggle="dropdown" id="user_login_ctrl">
+                                {$__USERNAME__}								<i class="caret caret-small"></i>
+							</a>
+						</div>
+						<a href="{:U('manage/UserMessage/index')}" class="cbtn o-message" id="user_fun_ctrl">
+                            消息						</a>
+					</div>
+					<div class="posr">
+						<div id="message_container" class="reminder" style="display: none;">
+							<a href="javascript:void(0)" onclick="Ibosapp.dropnotify.hide()" class="o-close-small"></a>
+							<ul class="reminder-list" >
+								<li rel="unread_message"><span></span>，<a href="{:U('UserMessage/index',['group'=>1])}" class="anchor">查看消息</a></li>								
+							</ul>
+						</div>
+					</div>
+				</div>
+				<!-- 用户登录状态卡 -->
+				<div class="uil-card" id="user_login_card" style="display:none;">
+					<div class="uil-card-header">
+						<div class="media">
+							<a href="{:U('manage/user/edit')}" class="pull-left avatar-circle">
+								<img src="{$__USERINFO__.avatar}">
+							</a>
+							<div class="media-body">
+								<h5 class="media-heading"><strong> {$__USERNAME__}</strong></h5>
+								<p class="fss"></p>
+							</div>
+						</div>
+					</div>
+					<div class="uil-card-body">
+						<div class="mbm">
+							<span class="exp-val"></span>
+							<span><i class="lv"></i> {$__USERINFO__.positionname}</span>
+						</div>
+						<div class="progress" title="Progress-bar">
+							<div class="progress-bar progress-bar-success" style="width: 100%;"></div>
+						</div>
+						<div class="btn-group btn-group-justified">
+							<a href="{:U('manage/user/edit')}" class="btn"><i class="om-user"></i>个人</a>
+<a class="btn" href="{:U('manage/user/pwd')}" ><i class="om-key"></i>密码</a>							
+<a href="{:U('manage/index/logout')}" class="btn"><i class="om-shutdown"></i>退出							</a>
+						</div>
+					</div>
+				</div>
+				<div class="fun-card" id="user_fun_card" style="display:none;">
+					<div class="fill-ss">
+						<ul class="list-inline fun-opt-list">
+							<li>
+								<a class="fun-opt-box" href="javascript:;" data-action="calling">
+									<i class="on-fun-call"></i>
+									<span class="fss db fun-opt-title">打电话</span>
+								</a>
+							</li>
+							<li>
+								<a class="fun-opt-box" href="/?r=email/content/add">
+									<i class="on-fun-email"></i>
+									<span class="fss db fun-opt-title">发邮件</span>
+								</a>
+							</li>
+							<li>
+								<a class="fun-opt-box" href="{:U('UserMessage/add')}" data-action="">
+									<i class="on-fun-private-letter"></i>
+									<span class="fss db fun-opt-title">发私信</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- Header end -->
+			<!-- load script end -->
+			<div class="wrap" id="mainer">
+<block name="main"></block>				
+			</div>
+			<!-- Footer -->
+			<div class="footer wrap" id="footer">
+				<!-- Breadcrumb -->
+				<div class="brc clearfix">
+					<a href="http://ibos/" title="">
+						<i class="o-logo"></i>
+					</a>
+					 <volist name="__TREE_PATH__" id="list">
+					 <a href="{$list.url|U}">{$list.name}</a>
+					</volist>						
+				</div>
+				<!-- Quick link -->
+				<div class="copyright">
+					<div class="quick-link">
+						<a target="_blank" href="http://doc.ibos.com.cn/">IBOS 帮助</a>
+						<span class="ilsep">|</span>
+						<a target="_blank" href="http://bbs.ibos.com.cn">意见反馈</a>
+						<span class="ilsep">|</span>
+						<a target="_blank" href="http://doc.ibos.com.cn/article/detail/id/256">Chrome 框架</a>
+						<span class="ilsep">|</span>
+						<a href="javascript:;" data-action="appDownload">移动端下载</a>
+										</div>
+					Powered by <strong>IBASE 1.0</strong>
+											
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

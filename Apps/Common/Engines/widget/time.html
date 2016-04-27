@@ -1,0 +1,9 @@
+<case value="time">
+     <div class="input-group datepicker" id="{$[type]form.name}">
+      <a href="javascript:;" class="datepicker-btn"></a>
+      <input type="text" id="{$[type]form.name}_input" class="form-control input date datepicker-input" name="{$[type]form.name}" value="<notempty name='[type]form.value'>{$[type]form.value|time_format='Y-m-d'}</notempty>" {$[type]form.extra_attr}>
+      </div>
+    <script type="text/javascript">
+    $("#{$[type]form.name}").datepicker({format: "yyyy-mm-dd hh:ii",pickSeconds: false,pickTime: true,});
+    </script>
+</case>
